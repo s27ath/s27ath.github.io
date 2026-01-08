@@ -11,61 +11,89 @@
             --dark: #0f172a;
             --light: #f8fafc;
             --accent: #38bdf8;
+            --resume-color: #dc2626;
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: #333; }
         
         /* --- 2. HEADER --- */
-        header { background: var(--dark); color: white; padding: 40px 20px; text-align: center; }
-        h1 { margin: 0; }
-        .tabs { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+        header { background: var(--dark); color: white; padding: 50px 20px; text-align: center; }
+        h1 { margin: 0; font-size: 2.5rem; }
+        .subtitle { color: #cbd5e1; margin-top: 10px; font-size: 1.1rem; }
+        
+        /* CONTACT BAR */
+        .contact-bar { 
+            margin-top: 25px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+            flex-wrap: wrap;
+        }
+        .contact-link {
+            color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;
+            padding: 8px 16px; background: rgba(255,255,255,0.1); border-radius: 8px; transition: 0.2s;
+        }
+        .contact-link:hover { background: rgba(255,255,255,0.2); }
+        .resume-btn { background: var(--resume-color); font-weight: bold; }
+        .resume-btn:hover { background: #b91c1c; }
+
+        /* --- 3. TABS --- */
+        .tabs { margin-top: 40px; display: flex; justify-content: center; gap: 15px; }
         .tab-btn {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-            color: white; padding: 10px 25px; cursor: pointer; border-radius: 20px;
-            font-weight: bold; transition: 0.3s;
+            background: transparent; border: 1px solid rgba(255,255,255,0.3);
+            color: white; padding: 10px 30px; cursor: pointer; border-radius: 30px;
+            font-size: 1rem; transition: 0.3s;
         }
         .tab-btn:hover, .tab-btn.active { background: var(--primary); border-color: var(--primary); }
 
-        /* --- 3. CONTAINER --- */
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .section { display: none; animation: fadeIn 0.5s; }
+        /* --- 4. CONTAINER --- */
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .section { display: none; animation: fadeIn 0.4s; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- 4. CARD STYLES (Research & Projects) --- */
+        /* --- 5. CARDS --- */
         .card {
             background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
-            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 25px;
+            border-left: 6px solid var(--primary); transition: transform 0.2s;
         }
+        .card:hover { transform: translateY(-2px); }
         .card-header {
-            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            padding: 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
         }
-        .card-header:hover { background: #f1f5f9; }
-        .card-title { font-size: 1.4rem; font-weight: bold; margin: 0; }
+        .card-title h3 { margin: 0; font-size: 1.3rem; }
+        .card-tags { margin-top: 8px; }
         .card-tags span {
-            font-size: 0.8rem; background: #e0f2fe; color: #0284c7;
-            padding: 4px 10px; border-radius: 12px; margin-left: 5px;
+            font-size: 0.75rem; background: #eff6ff; color: #1d4ed8;
+            padding: 4px 10px; border-radius: 12px; margin-right: 6px; display: inline-block;
         }
         
-        /* --- 5. EXPANDABLE CONTENT (Video + Text) --- */
+        /* --- 6. EXPANDABLE CONTENT --- */
         .card-body {
-            display: none; padding: 25px; border-top: 1px solid #eee; background: #fafafa;
+            display: none; padding: 25px; border-top: 1px solid #f1f5f9; background: #fafafa;
         }
         .card.open .card-body { display: block; }
         .video-container {
-            width: 100%; height: 400px; background: black; border-radius: 8px;
+            width: 100%; height: 350px; background: black; border-radius: 8px;
             display: flex; align-items: center; justify-content: center; color: white;
-            margin-bottom: 20px;
+            margin-bottom: 20px; overflow: hidden;
         }
-        video { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        video { width: 100%; height: 100%; object-fit: contain; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Sarath Chandra</h1>
-        <p>Computer Vision Researcher | Applied AI Engineer</p>
+        <div class="subtitle">Computer Vision Researcher | Applied AI Engineer</div>
         
+        <div class="contact-bar">
+            <a href="mailto:sarathchandra1527@gmail.com" class="contact-link">📧 Email</a>
+            <a href="https://www.linkedin.com/in/sarath2002/" target="_blank" class="contact-link">🔗 LinkedIn</a>
+            <a href="https://github.com/s27ath" target="_blank" class="contact-link">💻 GitHub</a>
+            <a href="resume.pdf" target="_blank" class="contact-link resume-btn">📄 Download Resume</a>
+        </div>
+
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('research')">🔬 Research</button>
             <button class="tab-btn" onclick="switchTab('projects')">🚀 Projects</button>
@@ -73,25 +101,20 @@
     </header>
 
     <div class="container">
-        
-        <div id="research-section" class="section active">
-            </div>
-
-        <div id="projects-section" class="section">
-            </div>
-
+        <div id="research-section" class="section active"></div>
+        <div id="projects-section" class="section"></div>
     </div>
 
     <script>
         // =======================================================
-        // 🔧 DATA SECTION - UPDATED FOR .JPEG
+        // 🔧 DATA SECTION
         // =======================================================
 
         const researchData = [
             {
                 title: "Anomaly Detection: Pickpocketing",
                 tags: ["Computer Vision", "Decision Fusion", "Optical Flow"],
-                mediaUrl: "videos/PP.mp4", 
+                mediaUrl: "videos/PP.mp4",  // Matches your screenshot exactly
                 mediaType: "video",
                 description: `
                     <p><strong>Goal:</strong> Detect subtle theft actions in crowded surveillance feeds.</p>
@@ -106,7 +129,7 @@
             {
                 title: "Anomaly Detection: Abandoned Bag",
                 tags: ["Object Tracking", "DeepSORT", "YOLOv8"],
-                mediaUrl: "videos/AB_1_LL.mp4",
+                mediaUrl: "videos/AB_1_LL.mp4", // Matches your screenshot exactly
                 mediaType: "video",
                 description: `
                     <p><strong>Goal:</strong> Identify luggage left unattended in public spaces.</p>
@@ -120,7 +143,7 @@
                 title: "Urban Sound Classification & Enhancement",
                 tags: ["Audio Processing", "PCEN", "SepFormer", "XGBoost"],
                 mediaUrl: "", 
-                mediaType: "none", // Keeps it hidden until you have a video
+                mediaType: "none",
                 description: `
                     <p>Built a pipeline to classify safety-critical sounds (gunshots, sirens) in noisy city environments.</p>
                     <ul>
@@ -134,7 +157,7 @@
             {
                 title: "License Plate Recognition (LPR)",
                 tags: ["Edge AI", "OCR", "React UI"],
-                mediaUrl: "images/lpr_demo.jpeg", // UPDATED: Now looks for .jpeg
+                mediaUrl: "images/lpr_demo.jpeg", // Make sure you have this file in 'images' folder!
                 mediaType: "image",
                 description: `
                     <p>A real-time LPR system designed for edge deployment. It uses a lightweight detection model to crop plates and passes them to an OCR engine for text extraction. Achieved 94% accuracy in variable lighting conditions.</p>
@@ -147,26 +170,22 @@
         // =======================================================
 
         function renderMedia(item) {
-            // 1. If no media, return empty string
-            if (item.mediaType === 'none' || !item.mediaUrl) {
-                return ''; 
-            }
+            if (item.mediaType === 'none' || !item.mediaUrl) return '';
             
-            // 2. If Image
             if (item.mediaType === 'image') {
                 return `<div class="video-container" style="background: white;">
                             <img src="${item.mediaUrl}" style="width: 100%; height: 100%; object-fit: contain;" alt="${item.title}">
                         </div>`;
             }
 
-            // 3. If Video (YouTube or Local MP4)
             if (item.mediaUrl.includes('youtube')) {
                 return `<div class="video-container">
                             <iframe width="100%" height="100%" src="${item.mediaUrl}" frameborder="0" allowfullscreen></iframe>
                         </div>`;
             } else {
                 return `<div class="video-container">
-                            <video controls><source src="${item.mediaUrl}" type="video/mp4">Video not found.</video>
+                            <video controls preload="metadata"><source src="${item.mediaUrl}" type="video/mp4">
+                            Video not found. Please check that ${item.mediaUrl} exists in your repository.</video>
                         </div>`;
             }
         }
@@ -207,7 +226,6 @@
             document.getElementById(tabName + '-section').classList.add('active');
         }
 
-        // Initialize the view
         renderCards(researchData, 'research-section');
         renderCards(projectData, 'projects-section');
 
