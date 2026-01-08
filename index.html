@@ -3,130 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarath Chandra | Data Scientist</title>
+    <title>Sarath Chandra | Computer Vision & AI</title>
     <style>
+        /* --- 1. CORE STYLING --- */
         :root {
-            --primary: #2563eb; /* Professional Blue */
-            --dark: #1e293b;
+            --primary: #2563eb;
+            --dark: #0f172a;
             --light: #f8fafc;
+            --accent: #38bdf8;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light);
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: #333; }
+        
+        /* --- 2. HEADER --- */
+        header { background: var(--dark); color: white; padding: 40px 20px; text-align: center; }
+        h1 { margin: 0; }
+        .tabs { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+        .tab-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 10px 25px; cursor: pointer; border-radius: 20px;
+            font-weight: bold; transition: 0.3s;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        /* Hero Section */
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            margin-bottom: 40px;
-        }
-        h1 { margin: 0; font-size: 2.5rem; color: var(--dark); }
-        .subtitle { color: #64748b; font-size: 1.2rem; margin-top: 10px; }
-        .social-links { margin-top: 20px; }
-        .social-links a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 600;
-        }
+        .tab-btn:hover, .tab-btn.active { background: var(--primary); border-color: var(--primary); }
 
-        /* Project Cards */
-        .section-title { border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 20px; }
-        .project-card {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            transition: transform 0.2s;
+        /* --- 3. CONTAINER --- */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .section { display: none; animation: fadeIn 0.5s; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 4. CARD STYLES (Research & Projects) --- */
+        .card {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
+            border-left: 5px solid var(--primary);
         }
-        .project-card:hover { transform: translateY(-3px); }
-        .tags span {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-right: 8px;
+        .card-header {
+            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
         }
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: bold;
+        .card-header:hover { background: #f1f5f9; }
+        .card-title { font-size: 1.4rem; font-weight: bold; margin: 0; }
+        .card-tags span {
+            font-size: 0.8rem; background: #e0f2fe; color: #0284c7;
+            padding: 4px 10px; border-radius: 12px; margin-left: 5px;
         }
+        
+        /* --- 5. EXPANDABLE CONTENT (Video + Text) --- */
+        .card-body {
+            display: none; padding: 25px; border-top: 1px solid #eee; background: #fafafa;
+        }
+        .card.open .card-body { display: block; }
+        .video-container {
+            width: 100%; height: 400px; background: black; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; color: white;
+            margin-bottom: 20px;
+        }
+        video { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Sarath Chandra</h1>
-        <div class="subtitle">Data Scientist | Applied AI Engineer</div>
-        <div class="social-links">
-            <a href="mailto:your-email@example.com">Email Me</a>
-            <a href="https://www.linkedin.com/in/your-linkedin">LinkedIn</a>
-            <a href="https://github.com/s27ath">GitHub</a>
+        <p>Computer Vision Researcher | Applied AI Engineer</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('research')">🔬 Research</button>
+            <button class="tab-btn" onclick="switchTab('projects')">🚀 Projects</button>
         </div>
     </header>
 
     <div class="container">
-        <section>
-            <h2 class="section-title">About Me</h2>
-            <p>
-                I am a Data Scientist specializing in <strong>Audio Processing</strong> and <strong>Computer Vision</strong>. 
-                My recent work focuses on anomaly detection systems and environmental sound classification using decision fusion techniques.
-                I am passionate about building AI solutions that solve real-world safety problems.
-            </p>
-        </section>
-
-        <section>
-            <h2 class="section-title">Featured Projects</h2>
-
-            <div class="project-card">
-                <h3>🔊 Urban Sound Classifier & Enhancer</h3>
-                <p>
-                    Developed a pipeline to separate human voice from environmental events. Used <strong>PCEN</strong> for amplitude scaling 
-                    and <strong>SepFormer</strong> for source separation. The system isolates specific urban sounds (like gunshots or sirens) 
-                    while preserving speech clarity.
-                </p>
-                <div class="tags">
-                    <span>Python</span>
-                    <span>Librosa</span>
-                    <span>SepFormer</span>
-                    <span>Audio Processing</span>
-                </div>
-                <a href="#" class="btn">View Code →</a>
+        
+        <div id="research-section" class="section active">
             </div>
 
-            <div class="project-card">
-                <h3>👁️ Anomaly Detection & Image Fusion</h3>
-                <p>
-                    Built a surveillance system for detecting abandoned bags and pickpocketing events. 
-                    Implemented a decision fusion approach to combine multiple vision models, significantly reducing false positives 
-                    in crowded environments.
-                </p>
-                <div class="tags">
-                    <span>Computer Vision</span>
-                    <span>Anomaly Detection</span>
-                    <span>Fusion Algorithms</span>
-                </div>
-                <a href="#" class="btn">View Code →</a>
+        <div id="projects-section" class="section">
             </div>
 
-        </section>
     </div>
 
+    <script>
+        // =======================================================
+        // 🔧 DATA SECTION - UPDATED FOR .JPEG
+        // =======================================================
+
+        const researchData = [
+            {
+                title: "Anomaly Detection: Pickpocketing",
+                tags: ["Computer Vision", "Decision Fusion", "Optical Flow"],
+                mediaUrl: "videos/pickpocketing.mp4", 
+                mediaType: "video",
+                description: `
+                    <p><strong>Goal:</strong> Detect subtle theft actions in crowded surveillance feeds.</p>
+                    <p>I developed a fusion model that analyzes two distinct streams:</p>
+                    <ul>
+                        <li><strong>Spatial Stream:</strong> Detects close proximity between people (using YOLO).</li>
+                        <li><strong>Temporal Stream:</strong> Analyzes rapid hand movements using Optical Flow vectors.</li>
+                    </ul>
+                    <p>The system triggers an alert only when "high proximity" AND "rapid localized motion" occur simultaneously.</p>
+                `
+            },
+            {
+                title: "Anomaly Detection: Abandoned Bag",
+                tags: ["Object Tracking", "DeepSORT", "YOLOv8"],
+                mediaUrl: "videos/bag.mp4",
+                mediaType: "video",
+                description: `
+                    <p><strong>Goal:</strong> Identify luggage left unattended in public spaces.</p>
+                    <p>The system assigns a unique ID to every person and object. It calculates the Euclidean distance between a bag and its "owner" over time. If the distance exceeds 3 meters for >30 seconds, the bag is flagged as abandoned.</p>
+                `
+            }
+        ];
+
+        const projectData = [
+            {
+                title: "Urban Sound Classification & Enhancement",
+                tags: ["Audio Processing", "PCEN", "SepFormer", "XGBoost"],
+                mediaUrl: "", 
+                mediaType: "none", // Keeps it hidden until you have a video
+                description: `
+                    <p>Built a pipeline to classify safety-critical sounds (gunshots, sirens) in noisy city environments.</p>
+                    <ul>
+                        <li><strong>Enhancement:</strong> Used PCEN to reduce background city rumble and boost event amplitude.</li>
+                        <li><strong>Separation:</strong> Applied SepFormer to isolate human voice from event sounds.</li>
+                        <li><strong>Result:</strong> Improved classification accuracy by 15% on the UrbanSound8K dataset.</li>
+                    </ul>
+                    <p><em>(Demo video coming soon)</em></p>
+                `
+            },
+            {
+                title: "License Plate Recognition (LPR)",
+                tags: ["Edge AI", "OCR", "React UI"],
+                mediaUrl: "images/lpr_demo.jpeg", // UPDATED: Now looks for .jpeg
+                mediaType: "image",
+                description: `
+                    <p>A real-time LPR system designed for edge deployment. It uses a lightweight detection model to crop plates and passes them to an OCR engine for text extraction. Achieved 94% accuracy in variable lighting conditions.</p>
+                `
+            }
+        ];
+
+        // =======================================================
+        // ⚙️ RENDER LOGIC
+        // =======================================================
+
+        function renderMedia(item) {
+            // 1. If no media, return empty string
+            if (item.mediaType === 'none' || !item.mediaUrl) {
+                return ''; 
+            }
+            
+            // 2. If Image
+            if (item.mediaType === 'image') {
+                return `<div class="video-container" style="background: white;">
+                            <img src="${item.mediaUrl}" style="width: 100%; height: 100%; object-fit: contain;" alt="${item.title}">
+                        </div>`;
+            }
+
+            // 3. If Video (YouTube or Local MP4)
+            if (item.mediaUrl.includes('youtube')) {
+                return `<div class="video-container">
+                            <iframe width="100%" height="100%" src="${item.mediaUrl}" frameborder="0" allowfullscreen></iframe>
+                        </div>`;
+            } else {
+                return `<div class="video-container">
+                            <video controls><source src="${item.mediaUrl}" type="video/mp4">Video not found.</video>
+                        </div>`;
+            }
+        }
+
+        function renderCards(data, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = data.map((item) => `
+                <div class="card" onclick="toggleCard(this)">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3>${item.title}</h3>
+                            <div class="card-tags">
+                                ${item.tags.map(tag => `<span>${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div style="color: #cbd5e1;">▼</div>
+                    </div>
+                    <div class="card-body">
+                        ${renderMedia(item)}
+                        <div>${item.description}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCard(card) {
+            const siblings = card.parentElement.children;
+            for (let sibling of siblings) {
+                if (sibling !== card) sibling.classList.remove('open');
+            }
+            card.classList.toggle('open');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(tabName + '-section').classList.add('active');
+        }
+
+        // Initialize the view
+        renderCards(researchData, 'research-section');
+        renderCards(projectData, 'projects-section');
+
+    </script>
 </body>
 </html>
