@@ -1,1 +1,132 @@
-<h1>Hello World! This is my Portfolio.</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarath Chandra | Data Scientist</title>
+    <style>
+        :root {
+            --primary: #2563eb; /* Professional Blue */
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Hero Section */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+        h1 { margin: 0; font-size: 2.5rem; color: var(--dark); }
+        .subtitle { color: #64748b; font-size: 1.2rem; margin-top: 10px; }
+        .social-links { margin-top: 20px; }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Project Cards */
+        .section-title { border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 20px; }
+        .project-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.2s;
+        }
+        .project-card:hover { transform: translateY(-3px); }
+        .tags span {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sarath Chandra</h1>
+        <div class="subtitle">Data Scientist | Applied AI Engineer</div>
+        <div class="social-links">
+            <a href="mailto:your-email@example.com">Email Me</a>
+            <a href="https://www.linkedin.com/in/your-linkedin">LinkedIn</a>
+            <a href="https://github.com/s27ath">GitHub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">About Me</h2>
+            <p>
+                I am a Data Scientist specializing in <strong>Audio Processing</strong> and <strong>Computer Vision</strong>. 
+                My recent work focuses on anomaly detection systems and environmental sound classification using decision fusion techniques.
+                I am passionate about building AI solutions that solve real-world safety problems.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">Featured Projects</h2>
+
+            <div class="project-card">
+                <h3>🔊 Urban Sound Classifier & Enhancer</h3>
+                <p>
+                    Developed a pipeline to separate human voice from environmental events. Used <strong>PCEN</strong> for amplitude scaling 
+                    and <strong>SepFormer</strong> for source separation. The system isolates specific urban sounds (like gunshots or sirens) 
+                    while preserving speech clarity.
+                </p>
+                <div class="tags">
+                    <span>Python</span>
+                    <span>Librosa</span>
+                    <span>SepFormer</span>
+                    <span>Audio Processing</span>
+                </div>
+                <a href="#" class="btn">View Code →</a>
+            </div>
+
+            <div class="project-card">
+                <h3>👁️ Anomaly Detection & Image Fusion</h3>
+                <p>
+                    Built a surveillance system for detecting abandoned bags and pickpocketing events. 
+                    Implemented a decision fusion approach to combine multiple vision models, significantly reducing false positives 
+                    in crowded environments.
+                </p>
+                <div class="tags">
+                    <span>Computer Vision</span>
+                    <span>Anomaly Detection</span>
+                    <span>Fusion Algorithms</span>
+                </div>
+                <a href="#" class="btn">View Code →</a>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+</html>
