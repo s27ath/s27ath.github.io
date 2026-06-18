@@ -756,6 +756,9 @@
                     <p><em>In development. Details coming soon.</em></p>
                 `
             },
+        ];
+
+        const projectData = [
             {
                 title: "Concealed Firearm Detection",
                 category: "cat-threat",
@@ -777,10 +780,7 @@
                     </ul>
                     <p><em>Full write-up and model details coming soon.</em></p>
                 `
-            }
-        ];
-
-        const projectData = [
+            },
             {
                 title: "Urban Sound Classification & Enhancement",
                 category: "cat-audio",
@@ -872,10 +872,7 @@
                             <div class="card-info">
                                 <div class="card-meta">
                                     <span class="cat-badge ${item.category}">${item.categoryLabel}</span>
-                                    <span class="status-pill ${item.status === 'complete' ? 'status-complete' : 'status-progress'}">
-                                        <span class="status-dot-sm"></span>
-                                        ${item.status === 'complete' ? 'Complete' : 'In Progress'}
-                                    </span>
+                                    ${item.status !== 'complete' ? `<span class="status-pill status-progress"><span class="status-dot-sm"></span>In Progress</span>` : ''}
                                 </div>
                                 <h3>${item.title}</h3>
                                 <div class="card-tags">
@@ -894,10 +891,7 @@
                 `<div class="modal-media-wrap">${renderMedia(item, true)}</div>`;
             document.getElementById('modalMeta').innerHTML =
                 `<span class="cat-badge ${item.category}">${item.categoryLabel}</span>
-                 <span class="status-pill ${item.status === 'complete' ? 'status-complete' : 'status-progress'}">
-                     <span class="status-dot-sm"></span>
-                     ${item.status === 'complete' ? 'Complete' : 'In Progress'}
-                 </span>`;
+                 ${item.status !== 'complete' ? `<span class="status-pill status-progress"><span class="status-dot-sm"></span>In Progress</span>` : ''}`;
             document.getElementById('modalTitle').textContent = item.title;
             document.getElementById('modalTags').innerHTML =
                 item.tags.map(t => `<span>${t}</span>`).join('');
