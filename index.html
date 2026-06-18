@@ -515,6 +515,34 @@
 
         .modal-media-placeholder svg { opacity: 0.4; }
 
+        /* ─── VIDEO GALLERY TABS ─── */
+        .media-gallery { width: 100%; height: 100%; display: flex; flex-direction: column; }
+        .media-gallery-tabs {
+            display: flex;
+            gap: 6px;
+            padding: 10px 14px 0;
+            background: #0a0f1a;
+            flex-shrink: 0;
+        }
+        .media-gallery-tab {
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid #1a2744;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all .18s;
+        }
+        .media-gallery-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        .media-gallery-video { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+        .media-gallery-video video { width: 100%; height: 100%; object-fit: contain; display: block; }
+
         .modal-media-placeholder span {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
@@ -734,11 +762,20 @@
                 categoryLabel: "Threat Detection",
                 status: "progress",
                 tags: ["Security CV", "Object Detection", "Passive Screening", "Surveillance"],
-                mediaUrl: "",
-                mediaType: "none",
+                mediaType: "gallery",
+                mediaGallery: [
+                    { url: "videos/demo_set2_handgun_2.mp4", label: "Handgun – Set 2" },
+                    { url: "videos/demo_set4_handgun_1.mp4", label: "Handgun – Set 4" },
+                    { url: "videos/demo_set4_nogun_1.mp4",   label: "No Gun – Set 4" }
+                ],
                 description: `
-                    <p>Detecting concealed weapons in crowded public environments using computer vision — targeting passive, non-invasive screening at high-risk locations.</p>
-                    <p><em>In development. Details coming soon.</em></p>
+                    <p><strong>Goal:</strong> Detect concealed weapons in crowded public environments using computer vision — targeting passive, non-invasive screening at high-risk locations.</p>
+                    <p>The demos below show the model running across different real-world scenarios:</p>
+                    <ul>
+                        <li><strong>Handgun – Set 2 &amp; Set 4:</strong> Detection triggered with bounding-box overlays when a firearm is identified.</li>
+                        <li><strong>No Gun – Set 4:</strong> Clean inference pass with no false positives in a benign scene.</li>
+                    </ul>
+                    <p><em>Full write-up and model details coming soon.</em></p>
                 `
             }
         ];
@@ -784,6 +821,20 @@
         };
 
         function renderMedia(item, inModal = false) {
+            if (item.mediaType === 'gallery' && item.mediaGallery && item.mediaGallery.length) {
+                if (!inModal) return '';
+                const tabs = item.mediaGallery.map((v, i) =>
+                    `<button class="media-gallery-tab${i === 0 ? ' active' : ''}" onclick="switchGalleryTab(this, '${v.url}')">${v.label}</button>`
+                ).join('');
+                return `<div class="media-gallery">
+                    <div class="media-gallery-tabs">${tabs}</div>
+                    <div class="media-gallery-video">
+                        <video id="galleryVideo" controls preload="metadata">
+                            <source src="${item.mediaGallery[0].url}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>`;
+            }
             if (item.mediaType === 'none' || !item.mediaUrl) {
                 if (!inModal) return '';
                 return `<div class="modal-media-placeholder">
@@ -800,6 +851,15 @@
             return `<video controls preload="metadata" style="width:100%;height:100%;object-fit:contain;display:block;">
                 <source src="${item.mediaUrl}" type="video/mp4">
             </video>`;
+        }
+
+        function switchGalleryTab(btn, url) {
+            btn.closest('.media-gallery-tabs').querySelectorAll('.media-gallery-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const vid = document.getElementById('galleryVideo');
+            vid.pause();
+            vid.querySelector('source').src = url;
+            vid.load();
         }
 
         function renderCards(data, containerId, sectionTitle, sectionKey) {
@@ -850,7 +910,6 @@
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('open');
             document.body.style.overflow = '';
-            // pause any playing video
             document.querySelectorAll('#modalMedia video').forEach(v => v.pause());
         }
 
